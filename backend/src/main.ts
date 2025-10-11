@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationInterceptor } from './common/interceptors/validation.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,12 +13,16 @@ async function bootstrap() {
     transform: true // Transforma tipos automaticamente
   }));
 
+  // Interceptor para traduzir mensagens de validação
+  app.useGlobalInterceptors(new ValidationInterceptor());
+
   // Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('Forte Asset Manager API')
     .setDescription('API para gerenciamento de empresas, funcionários e ativos')
     .setVersion('1.0')
     .addTag('Empresas')
+    .addTag('Funcionários')
     .build();
   
   const document = SwaggerModule.createDocument(app, config);

@@ -30,7 +30,7 @@ model Employee {
   company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
   assets    Asset[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime?
 
   @@map("employees")
 }
