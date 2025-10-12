@@ -23,6 +23,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('Empresas')
     .addTag('Funcionários')
+    .addTag('Ativos')
     .build();
   
   const document = SwaggerModule.createDocument(app, config);
