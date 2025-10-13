@@ -1,0 +1,62 @@
+<div class="form-container">
+    <div class="form-header">
+        <h2 mat-dialog-title>
+            {{ isEditMode ? 'Editar Funcionário' : 'Novo Funcionário' }}
+        </h2>
+    </div>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="employee-form">
+        <div class="form-content">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nome do Funcionário</mat-label>
+                <input matInput formControlName="name" placeholder="Digite o nome do funcionário" maxlength="100">
+                <mat-error *ngIf="employeeForm.get('name')?.hasError('required') && employeeForm.get('name')?.touched">
+                    {{ getErrorMessage('name') }}
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('name')?.hasError('minlength') && employeeForm.get('name')?.touched">
+                    {{ getErrorMessage('name') }}
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('name')?.hasError('maxlength') && employeeForm.get('name')?.touched">
+                    {{ getErrorMessage('name') }}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="Digite o email do funcionário">
+                <mat-error
+                    *ngIf="employeeForm.get('email')?.hasError('required') && employeeForm.get('email')?.touched">
+                    {{ getErrorMessage('email') }}
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('email')?.hasError('email') && employeeForm.get('email')?.touched">
+                    {{ getErrorMessage('email') }}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>CPF</mat-label>
+                <input matInput formControlName="cpf" placeholder="Digite apenas números" maxlength="14"
+                    (input)="formatCpf($event)">
+                <mat-error *ngIf="employeeForm.get('cpf')?.hasError('required') && employeeForm.get('cpf')?.touched">
+                    {{ getErrorMessage('cpf') }}
+                </mat-error>
+                <mat-error *ngIf="employeeForm.get('cpf')?.hasError('invalidCpf') && employeeForm.get('cpf')?.touched">
+                    {{ getErrorMessage('cpf') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" mat-button (click)="onCancel()" [disabled]="loading">
+                <mat-icon>close</mat-icon>
+                Cancelar
+            </button>
+
+            <button type="submit" mat-raised-button color="primary" [disabled]="employeeForm.invalid || loading">
+                <mat-icon *ngIf="!loading">{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ isEditMode ? 'Atualizar' : 'Criar' }}
+            </button>
+        </div>
+    </form>
+</div>

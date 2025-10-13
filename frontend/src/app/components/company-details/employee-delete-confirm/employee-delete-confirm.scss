@@ -1,0 +1,129 @@
+.form-container {
+  padding: 24px;
+  min-width: 400px;
+}
+
+.form-header {
+  margin-bottom: 16px;
+  padding-left: 16px;
+  
+  h2 {
+    margin: 0;
+    color: var(--forte-dark);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.confirm-content {
+  margin-bottom: 24px;
+
+  .warning-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+    padding: 16px;
+
+    .warning-icon {
+      font-size: 48px;
+      color: var(--forte-orange);
+      margin-bottom: 16px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color: var(--forte-dark);
+      line-height: 1.5;
+
+      strong {
+        color: var(--forte-blue);
+        font-weight: 600;
+      }
+    }
+
+    .warning-text {
+      color: var(--forte-orange);
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  
+  button {
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 12px 24px;
+    
+    mat-icon {
+      font-size: 18px;
+    }
+    
+    &[mat-button] {
+      color: var(--forte-gray);
+      border: 1px solid var(--forte-border);
+      
+      &:hover {
+        background: var(--forte-light);
+        color: var(--forte-dark);
+      }
+    }
+    
+    &[mat-raised-button] {
+      background: #FF4757;
+      color: white;
+      
+      &:hover {
+        background: #FF4757;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+      }
+    }
+  }
+}
+
+.mat-mdc-raised-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.mat-mdc-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 16px;
+    min-width: 300px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

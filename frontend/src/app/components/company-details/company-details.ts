@@ -8,7 +8,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Header } from '../header/header';
+import { EmployeeForm, EmployeeFormData } from './employee-form/employee-form';
+import { EmployeeDeleteConfirm, EmployeeDeleteData } from './employee-delete-confirm/employee-delete-confirm';
 import { CompanyService } from '../../services/company.service';
 import { EmployeeService } from '../../services/employee.service';
 import { Company } from '../../models/company.model';
@@ -26,6 +29,7 @@ import { ApiError } from '../../utils/error-handler';
     MatSnackBarModule,
     MatChipsModule,
     MatTooltipModule,
+    MatDialogModule,
     Header
   ],
   templateUrl: './company-details.html',
@@ -42,7 +46,8 @@ export class CompanyDetails implements OnInit {
     private router: Router,
     private companyService: CompanyService,
     private employeeService: EmployeeService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -93,7 +98,51 @@ export class CompanyDetails implements OnInit {
   }
 
   openCreateEmployeeDialog(): void {
-    console.log('Abrir modal de criação');
+    if (!this.company) return;
+
+    const dialogRef = this.dialog.open(EmployeeForm, {
+      width: '600px',
+      data: { 
+        mode: 'create', 
+        companyId: this.company.id 
+      } as EmployeeFormData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadEmployees(this.company!.id);
+      }
+    });
+  }
+
+  openEditEmployeeDialog(employee: Employee): void {
+    const dialogRef = this.dialog.open(EmployeeForm, {
+      width: '600px',
+      data: { 
+        mode: 'edit', 
+        employee,
+        companyId: this.company!.id 
+      } as EmployeeFormData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadEmployees(this.company!.id);
+      }
+    });
+  }
+
+  openDeleteEmployeeDialog(employee: Employee): void {
+    const dialogRef = this.dialog.open(EmployeeDeleteConfirm, {
+      width: '500px',
+      data: { employee } as EmployeeDeleteData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadEmployees(this.company!.id);
+      }
+    });
   }
 
   goBack(): void {

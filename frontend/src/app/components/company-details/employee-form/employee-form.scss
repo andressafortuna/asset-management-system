@@ -1,0 +1,138 @@
+.form-container {
+  padding: 24px;
+  min-width: 400px;
+}
+
+.form-header {
+  margin-bottom: 16px;
+  
+  h2 {
+    margin: 0;
+    color: var(--forte-dark);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.employee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  
+  span {
+    color: #666;
+    font-size: 0.875rem;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  
+  button {
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 12px 24px;
+    
+    mat-icon {
+      font-size: 18px;
+    }
+    
+    &[mat-button] {
+      color: var(--forte-gray);
+      border: 1px solid var(--forte-border);
+      
+      &:hover {
+        background: var(--forte-light);
+        color: var(--forte-dark);
+      }
+    }
+    
+    &[mat-raised-button] {
+      background: var(--forte-blue);
+      color: white;
+      
+      &:hover {
+        background: #3A7BD5;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+      }
+    }
+  }
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-form-field-outline {
+    color: var(--forte-blue);
+  }
+  
+  &.mat-focused .mat-mdc-form-field-outline-thick {
+    color: var(--forte-blue);
+  }
+  
+  .mat-mdc-form-field-label {
+    color: var(--forte-gray);
+    font-size: 0.875rem;
+  }
+  
+  &.mat-focused .mat-mdc-form-field-label {
+    color: var(--forte-blue);
+  }
+  
+  .mat-mdc-input-element {
+    font-size: 0.875rem;
+  }
+}
+
+.mat-mdc-raised-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.mat-mdc-button {
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 16px;
+    min-width: 300px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

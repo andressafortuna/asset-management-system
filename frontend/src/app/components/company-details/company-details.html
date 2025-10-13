@@ -81,10 +81,12 @@
                                     </div>
                                 </div>
                                 <div class="employee-actions">
-                                    <button mat-icon-button color="primary" matTooltip="Editar funcionário">
+                                    <button mat-icon-button color="primary" (click)="openEditEmployeeDialog(employee)"
+                                        matTooltip="Editar funcionário">
                                         <mat-icon>edit</mat-icon>
                                     </button>
-                                    <button mat-icon-button color="warn" matTooltip="Excluir funcionário">
+                                    <button mat-icon-button color="warn" (click)="openDeleteEmployeeDialog(employee)"
+                                        matTooltip="Excluir funcionário">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                     <button mat-icon-button color="accent" matTooltip="Gerenciar ativos do funcionário">
