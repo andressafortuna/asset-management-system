@@ -4,49 +4,61 @@
     padding: 0;
 }
 
-.header-toolbar {
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid var(--forte-border);
-    padding: 16px 24px;
-
-    .title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--forte-dark);
-    }
-
-    .spacer {
-        flex: 1 1 auto;
-    }
-}
-
 .content {
     padding: 32px;
     max-width: 1400px;
     margin: 0 auto;
+    margin-top: 80px;
 }
 
 .main-card {
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     background: white;
-    border: 1px solid var(--forte-border);
 
     mat-card-header {
         margin-bottom: 24px;
         padding: 24px 24px 0 24px;
 
-        mat-card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--forte-dark);
-        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
 
-        mat-card-subtitle {
-            color: var(--forte-gray);
-            font-size: 1rem;
-            margin-top: 8px;
+            .title-section {
+                flex: 1;
+
+                mat-card-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: var(--forte-dark);
+                }
+
+                mat-card-subtitle {
+                    color: var(--forte-gray);
+                    font-size: 1rem;
+                    margin-top: 8px;
+                }
+            }
+
+            .action-section {
+                margin-left: 24px;
+                flex-shrink: 0;
+
+                button {
+                    background: var(--forte-blue);
+                    color: white;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    padding: 12px 24px;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background: #3A7BD5;
+                        transform: translateY(-2px);
+                    }
+                }
+            }
         }
     }
 }
@@ -80,7 +92,6 @@
         background: var(--forte-light);
         font-weight: 600;
         color: var(--forte-dark);
-        border-bottom: 2px solid var(--forte-border);
         padding: 8px 12px;
         font-size: 0.875rem;
         text-transform: uppercase;
@@ -94,7 +105,6 @@
         &:hover {
             background-color: #F8F9FA;
             transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         &:last-child {
@@ -194,7 +204,6 @@
         &:hover {
             background: #3A7BD5;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
         }
     }
 }
@@ -211,7 +220,6 @@
         &:hover {
             background: #3A7BD5;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
         }
     }
 }
@@ -219,6 +227,22 @@
 @media (max-width: 768px) {
     .content {
         padding: 16px;
+        margin-top: 70px; 
+    }
+
+    .main-card {
+        mat-card-header {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+
+                .action-section {
+                    margin-left: 0;
+                    margin-top: 16px;
+                    align-self: flex-start;
+                }
+            }
+        }
     }
 
     .companies-table {

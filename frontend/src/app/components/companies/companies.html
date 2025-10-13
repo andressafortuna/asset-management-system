@@ -1,25 +1,25 @@
 <div class="companies-container">
-
-    <mat-toolbar color="primary" class="header-toolbar">
-        <mat-toolbar-row>
-            <span class="title">ForteTec Asset Manager</span>
-            <span class="spacer"></span>
-            <button mat-raised-button color="accent" (click)="openCreateDialog()">
-                <mat-icon>add</mat-icon>
-                Nova Empresa
-            </button>
-        </mat-toolbar-row>
-    </mat-toolbar>
+    <app-header></app-header>
 
     <div class="content">
         <mat-card class="main-card">
             <mat-card-header>
-                <mat-card-title>
-                    Empresas Cadastradas
-                </mat-card-title>
-                <mat-card-subtitle>
-                    Gerencie as empresas do sistema
-                </mat-card-subtitle>
+                <div class="header-content">
+                    <div class="title-section">
+                        <mat-card-title>
+                            Empresas Cadastradas
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            Gerencie as empresas do sistema
+                        </mat-card-subtitle>
+                    </div>
+                    <div class="action-section">
+                        <button mat-raised-button color="accent" (click)="openCreateDialog()">
+                            <mat-icon>add</mat-icon>
+                            Nova Empresa
+                        </button>
+                    </div>
+                </div>
             </mat-card-header>
 
             <mat-card-content>

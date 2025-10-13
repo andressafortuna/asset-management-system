@@ -12,6 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CompanyService } from '../../services/company.service';
 import { Company } from '../../models/company.model';
 import { CompanyForm } from '../company-form/company-form';
+import { Header } from '../header/header';
 import { ApiError } from '../../utils/error-handler';
 
 @Component({
@@ -26,7 +27,8 @@ import { ApiError } from '../../utils/error-handler';
     MatSnackBarModule,
     MatDialogModule,
     MatToolbarModule,
-    MatChipsModule
+    MatChipsModule,
+    Header
   ],
   templateUrl: './companies.html',
   styleUrl: './companies.scss'
