@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompanyService } from '../../services/company.service';
 import { Company, CreateCompanyRequest } from '../../models/company.model';
+import { ApiError } from '../../utils/error-handler';
 
 export interface CompanyFormData {
   mode: 'create' | 'edit';
@@ -63,21 +64,21 @@ export class CompanyForm implements OnInit {
   cnpjValidator(control: any) {
     const cnpj = control.value;
     if (!cnpj) return null;
-    
+
     const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
     return cnpjRegex.test(cnpj) ? null : { invalidCnpj: true };
   }
 
   formatCnpj(event: any): void {
     let value = event.target.value.replace(/\D/g, '');
-    
+
     if (value.length <= 14) {
       value = value.replace(/^(\d{2})(\d)/, '$1.$2');
       value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
       value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
       value = value.replace(/(\d{4})(\d)/, '$1-$2');
     }
-    
+
     this.companyForm.patchValue({ cnpj: value });
   }
 
@@ -94,10 +95,10 @@ export class CompanyForm implements OnInit {
             });
             this.dialogRef.close(true);
           },
-          error: (error) => {
+          error: (error: ApiError) => {
             console.error('Erro ao atualizar empresa:', error);
-            this.snackBar.open('Erro ao atualizar empresa', 'Fechar', {
-              duration: 3000
+            this.snackBar.open(error.message, 'Fechar', {
+              duration: 5000
             });
             this.loading = false;
           }
@@ -110,10 +111,10 @@ export class CompanyForm implements OnInit {
             });
             this.dialogRef.close(true);
           },
-          error: (error) => {
+          error: (error: ApiError) => {
             console.error('Erro ao criar empresa:', error);
-            this.snackBar.open('Erro ao criar empresa', 'Fechar', {
-              duration: 3000
+            this.snackBar.open(error.message, 'Fechar', {
+              duration: 5000
             });
             this.loading = false;
           }

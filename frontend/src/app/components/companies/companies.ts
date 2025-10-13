@@ -12,6 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CompanyService } from '../../services/company.service';
 import { Company } from '../../models/company.model';
 import { CompanyForm } from '../company-form/company-form';
+import { ApiError } from '../../utils/error-handler';
 
 @Component({
   selector: 'app-companies',
@@ -52,10 +53,10 @@ export class Companies implements OnInit {
         this.companies = companies;
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: ApiError) => {
         console.error('Erro ao carregar empresas:', error);
-        this.snackBar.open('Erro ao carregar empresas', 'Fechar', {
-          duration: 3000
+        this.snackBar.open(error.message, 'Fechar', {
+          duration: 5000
         });
         this.loading = false;
       }
@@ -97,10 +98,10 @@ export class Companies implements OnInit {
           });
           this.loadCompanies();
         },
-        error: (error) => {
+        error: (error: ApiError) => {
           console.error('Erro ao excluir empresa:', error);
-          this.snackBar.open('Erro ao excluir empresa', 'Fechar', {
-            duration: 3000
+          this.snackBar.open(error.message, 'Fechar', {
+            duration: 5000
           });
         }
       });
