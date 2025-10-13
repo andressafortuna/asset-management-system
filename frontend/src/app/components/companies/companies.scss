@@ -14,6 +14,7 @@
 .main-card {
     border-radius: 16px;
     background: white;
+    border: 1px solid var(--forte-border);
 
     mat-card-header {
         margin-bottom: 24px;
@@ -87,37 +88,53 @@
 .companies-table {
     width: 100%;
     background: white;
+    border-collapse: collapse;
 
     .mat-mdc-header-cell {
         background: var(--forte-light);
         font-weight: 600;
         color: var(--forte-dark);
-        padding: 8px 12px;
+        padding: 12px 16px;
         font-size: 0.875rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--forte-border);
+        text-align: left;
+
+        &:last-child {
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
+        }
     }
 
     .mat-mdc-row {
-        transition: all 0.2s ease;
+        transition: background-color 0.2s ease;
         border-bottom: 1px solid var(--forte-border);
 
         &:hover {
             background-color: #F8F9FA;
-            transform: translateY(-1px);
         }
 
         &:last-child {
-            border-bottom: none;
+            border-bottom: 1px solid var(--forte-border);
         }
     }
 
     .mat-mdc-cell {
-        padding: 8px 12px;
+        padding: 12px 16px;
         border-bottom: none;
         font-size: 0.875rem;
         font-weight: 400;
         color: var(--forte-dark);
+        vertical-align: middle;
+
+        &:last-child {
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
+            text-align: center;
+        }
     }
 }
 
@@ -130,16 +147,22 @@
 
 .actions-container {
     display: flex;
-    gap: 8px;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
 
     button {
-        transition: all 0.2s ease;
-        border-radius: 8px;
+        transition: background-color 0.2s ease;
+        border-radius: 6px;
         background: transparent;
         border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
-            transform: translateY(-2px);
             background: rgba(0, 0, 0, 0.05);
         }
 
@@ -227,7 +250,7 @@
 @media (max-width: 768px) {
     .content {
         padding: 16px;
-        margin-top: 70px; 
+        margin-top: 70px;
     }
 
     .main-card {
@@ -247,6 +270,17 @@
 
     .companies-table {
         font-size: 0.875rem;
+
+        .mat-mdc-header-cell,
+        .mat-mdc-cell {
+            padding: 8px 12px;
+
+            &:last-child {
+                width: 80px;
+                min-width: 80px;
+                max-width: 80px;
+            }
+        }
     }
 
     .company-info {
@@ -254,8 +288,12 @@
     }
 
     .actions-container {
-        flex-direction: column;
         gap: 2px;
+
+        button {
+            width: 28px;
+            height: 28px;
+        }
     }
 }
 
