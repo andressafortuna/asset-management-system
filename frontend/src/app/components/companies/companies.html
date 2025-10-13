@@ -43,7 +43,7 @@
                         <ng-container matColumnDef="cnpj">
                             <th mat-header-cell *matHeaderCellDef>CNPJ</th>
                             <td mat-cell *matCellDef="let company">
-                                <mat-chip class="table-data">{{ company.cnpj }}</mat-chip>
+                                <span class="table-data">{{ company.cnpj }}</span>
                             </td>
                         </ng-container>
 
@@ -58,6 +58,10 @@
                             <th mat-header-cell *matHeaderCellDef>Ações</th>
                             <td mat-cell *matCellDef="let company">
                                 <div class="actions-container">
+                                    <button mat-icon-button color="accent" (click)="viewCompanyDetails(company)"
+                                        matTooltip="Ver detalhes da empresa">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
                                     <button mat-icon-button color="primary" (click)="openEditDialog(company)"
                                         matTooltip="Editar empresa">
                                         <mat-icon>edit</mat-icon>

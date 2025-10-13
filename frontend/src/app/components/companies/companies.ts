@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +10,7 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyService } from '../../services/company.service';
 import { Company } from '../../models/company.model';
 import { CompanyForm } from '../company-form/company-form';
@@ -28,6 +30,7 @@ import { ApiError } from '../../utils/error-handler';
     MatDialogModule,
     MatToolbarModule,
     MatChipsModule,
+    MatTooltipModule,
     Header
   ],
   templateUrl: './companies.html',
@@ -41,7 +44,8 @@ export class Companies implements OnInit {
   constructor(
     private companyService: CompanyService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -89,6 +93,10 @@ export class Companies implements OnInit {
         this.loadCompanies();
       }
     });
+  }
+
+  viewCompanyDetails(company: Company): void {
+    this.router.navigate(['/empresas', company.id]);
   }
 
   deleteCompany(company: Company): void {

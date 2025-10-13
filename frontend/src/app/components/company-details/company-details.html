@@ -1,0 +1,101 @@
+<div class="company-details-container">
+    <app-header></app-header>
+
+    <div class="content">
+
+        <div *ngIf="companyLoading" class="loading-container">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Carregando detalhes da empresa...</p>
+        </div>
+
+        <div *ngIf="!companyLoading && company" class="main-content">
+            <mat-card class="company-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <div class="title-section">
+                            <mat-card-title>{{ company.name }}</mat-card-title>
+                            <mat-card-subtitle>Detalhes da empresa</mat-card-subtitle>
+                        </div>
+                        <div class="action-section">
+                            <button mat-stroked-button (click)="goBack()">
+                                <mat-icon>arrow_back</mat-icon>
+                                Voltar
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="company-info">
+                        <div class="info-item">
+                            <label>CNPJ:</label>
+                            <span class="cnpj-text">{{ company.cnpj }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Criada em:</label>
+                            <span class="date-text">{{ formatDate(company.createdAt) }}</span>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="employees-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <div class="title-section">
+                            <mat-card-title>Funcionários</mat-card-title>
+                            <mat-card-subtitle>Gerencie os funcionários desta empresa</mat-card-subtitle>
+                        </div>
+                        <div class="action-section">
+                            <button mat-raised-button color="accent" (click)="openCreateEmployeeDialog()">
+                                <mat-icon>add</mat-icon>
+                                Novo Funcionário
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div *ngIf="loading" class="loading-container">
+                        <mat-spinner diameter="50"></mat-spinner>
+                        <p>Carregando funcionários...</p>
+                    </div>
+
+                    <div *ngIf="!loading" class="employees-content">
+                        <div *ngIf="employees.length === 0" class="empty-state">
+                            <h3>Nenhum funcionário cadastrado</h3>
+                            <p>Comece adicionando o primeiro funcionário desta empresa.</p>
+                            <button mat-raised-button color="primary" (click)="openCreateEmployeeDialog()">
+                                <mat-icon>add</mat-icon>
+                                Adicionar Primeiro Funcionário
+                            </button>
+                        </div>
+
+                        <div *ngIf="employees.length > 0" class="employees-list">
+                            <div *ngFor="let employee of employees" class="employee-item">
+                                <div class="employee-info">
+                                    <div class="employee-name">{{ employee.name }}</div>
+                                    <div class="employee-details">
+                                        <span class="email">{{ employee.email }}</span>
+                                        <span class="cpf-text">{{ employee.cpf }}</span>
+                                    </div>
+                                </div>
+                                <div class="employee-actions">
+                                    <button mat-icon-button color="primary" matTooltip="Editar funcionário">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" matTooltip="Excluir funcionário">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="accent" matTooltip="Gerenciar ativos do funcionário">
+                                        <mat-icon>inventory</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

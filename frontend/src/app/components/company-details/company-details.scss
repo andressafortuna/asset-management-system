@@ -1,0 +1,308 @@
+.company-details-container {
+    min-height: 100vh;
+    background: #FAFBFC;
+    padding: 0;
+}
+
+.content {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px;
+    gap: 20px;
+
+    p {
+        color: var(--forte-gray);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.company-card,
+.employees-card {
+    border-radius: 16px;
+    background: white;
+    border: 1px solid var(--forte-border);
+
+    mat-card-header {
+        margin-bottom: 24px;
+        padding: 24px 24px 0 24px;
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+
+            .title-section {
+                flex: 1;
+
+                mat-card-title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: var(--forte-dark);
+                    font-family: 'Roboto', sans-serif;
+                }
+
+                mat-card-subtitle {
+                    color: var(--forte-gray);
+                    font-size: 14px;
+                    margin-top: 8px;
+                    font-family: 'Roboto', sans-serif;
+                }
+            }
+
+            .action-section {
+                margin-left: 24px;
+                flex-shrink: 0;
+
+                button {
+                    border-radius: 12px;
+                    font-weight: 600;
+                    padding: 12px 24px;
+                    transition: all 0.2s ease;
+
+                    &[mat-raised-button] {
+                        background: var(--forte-blue);
+                        color: white;
+
+                        &:hover {
+                            background: #3A7BD5;
+                            transform: translateY(-2px);
+                        }
+                    }
+
+                    &[mat-stroked-button] {
+                        border: 1px solid var(--forte-border);
+                        color: var(--forte-dark);
+
+                        &:hover {
+                            background: var(--forte-light);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px 24px 24px;
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        label {
+            font-weight: 600;
+            color: var(--forte-dark);
+            min-width: 80px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        span {
+            color: var(--forte-gray);
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .cnpj-text, .date-text {
+            color: var(--forte-dark);
+            font-weight: 400;
+        }
+    }
+}
+
+.employees-content {
+    padding: 0 24px 24px 24px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 32px;
+    text-align: center;
+
+    h3 {
+        color: var(--forte-dark);
+        margin-bottom: 2px;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: var(--forte-gray);
+        margin-bottom: 28px;
+        font-size: 1.1rem;
+        max-width: 450px;
+        line-height: 1;
+    }
+
+    button {
+        padding: 16px 32px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 12px;
+        background: var(--forte-blue);
+        color: white;
+        border: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #3A7BD5;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+.employees-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.employee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--forte-border);
+    border-radius: 12px;
+    background: white;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #F8F9FA;
+        transform: translateY(-1px);
+    }
+
+    .employee-info {
+        flex: 1;
+
+        .employee-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--forte-dark);
+            margin-bottom: 4px;
+        }
+
+        .employee-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .email {
+                color: var(--forte-gray);
+                font-size: 14px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .cpf-text {
+                font-size: 14px;
+                color: var(--forte-dark);
+                font-family: 'Roboto', sans-serif;
+                font-weight: 400;
+            }
+        }
+    }
+
+    .employee-actions {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        button {
+            transition: background-color 0.2s ease;
+            border-radius: 6px;
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.05);
+            }
+
+            &[color="primary"] {
+                color: var(--forte-blue);
+
+                &:hover {
+                    background: rgba(74, 144, 226, 0.1);
+                }
+            }
+
+            &[color="warn"] {
+                color: #FF4757;
+
+                &:hover {
+                    background: rgba(255, 71, 87, 0.1);
+                }
+            }
+
+            &[color="accent"] {
+                color: var(--forte-orange);
+
+                &:hover {
+                    background: rgba(255, 107, 53, 0.1);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 16px;
+        margin-top: 70px;
+    }
+
+    .company-card,
+    .employees-card {
+        mat-card-header {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+
+                .action-section {
+                    margin-left: 0;
+                    margin-top: 16px;
+                    align-self: flex-start;
+                }
+            }
+        }
+    }
+
+    .employee-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+
+        .employee-actions {
+            justify-content: center;
+        }
+    }
+}
