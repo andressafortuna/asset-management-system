@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --forte-blue: #4A90E2;
+  --forte-orange: #FF6B35;
+  --forte-green: #7ED321;
+  --forte-yellow: #F5A623;
+  --forte-dark: #2C3E50;
+  --forte-light: #F8F9FA;
+  --forte-gray: #6C757D;
+  --forte-border: #E9ECEF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #FAFBFC;
+}
+
+body {
+  background: #FAFBFC;
+  min-height: 100vh;
+}
+
+.mat-mdc-dialog-container {
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+.mat-mdc-snack-bar-container {
+  border-radius: 8px !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--forte-gray);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--forte-dark);
+}

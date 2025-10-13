@@ -1,0 +1,89 @@
+<div class="companies-container">
+
+    <mat-toolbar color="primary" class="header-toolbar">
+        <mat-toolbar-row>
+            <span class="title">ForteTec Asset Manager</span>
+            <span class="spacer"></span>
+            <button mat-raised-button color="accent" (click)="openCreateDialog()">
+                <mat-icon>add</mat-icon>
+                Nova Empresa
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="content">
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>
+                    Empresas Cadastradas
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Gerencie as empresas do sistema
+                </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div *ngIf="loading" class="loading-container">
+                    <mat-spinner diameter="50"></mat-spinner>
+                    <p>Carregando empresas...</p>
+                </div>
+
+                <div *ngIf="!loading" class="table-container">
+                    <table mat-table [dataSource]="companies" class="companies-table">
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Nome</th>
+                            <td mat-cell *matCellDef="let company">
+                                <div class="company-info">
+                                    <span class="table-data">{{ company.name }}</span>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cnpj">
+                            <th mat-header-cell *matHeaderCellDef>CNPJ</th>
+                            <td mat-cell *matCellDef="let company">
+                                <mat-chip class="table-data">{{ company.cnpj }}</mat-chip>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef>Criada em</th>
+                            <td mat-cell *matCellDef="let company">
+                                <span class="table-data">{{ company.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Ações</th>
+                            <td mat-cell *matCellDef="let company">
+                                <div class="actions-container">
+                                    <button mat-icon-button color="primary" (click)="openEditDialog(company)"
+                                        matTooltip="Editar empresa">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="deleteCompany(company)"
+                                        matTooltip="Excluir empresa">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <div *ngIf="companies.length === 0" class="empty-state">
+                        <h3>Nenhuma empresa cadastrada</h3>
+                        <p>Comece criando sua primeira empresa no sistema.</p>
+                        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+                            <mat-icon>add</mat-icon>
+                            Criar Primeira Empresa
+                        </button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
