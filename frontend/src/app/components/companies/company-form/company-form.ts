@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CompanyService } from '../../services/company.service';
-import { Company, CreateCompanyRequest } from '../../models/company.model';
-import { ApiError } from '../../utils/error-handler';
+import { CompanyService } from '../../../services/company.service';
+import { Company, CreateCompanyRequest } from '../../../models/company.model';
+import { ApiError } from '../../../utils/error-handler';
 
 export interface CompanyFormData {
   mode: 'create' | 'edit';

@@ -13,7 +13,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CompanyService } from '../../services/company.service';
 import { Company } from '../../models/company.model';
-import { CompanyForm } from '../company-form/company-form';
+import { CompanyForm } from './company-form/company-form';
+import { CompanyDeleteConfirm } from './company-delete-confirm/company-delete-confirm';
 import { Header } from '../header/header';
 import { ApiError } from '../../utils/error-handler';
 
@@ -100,21 +101,15 @@ export class Companies implements OnInit {
   }
 
   deleteCompany(company: Company): void {
-    if (confirm(`Tem certeza que deseja excluir a empresa "${company.name}"?`)) {
-      this.companyService.deleteCompany(company.id).subscribe({
-        next: () => {
-          this.snackBar.open('Empresa excluída com sucesso', 'Fechar', {
-            duration: 3000
-          });
-          this.loadCompanies();
-        },
-        error: (error: ApiError) => {
-          console.error('Erro ao excluir empresa:', error);
-          this.snackBar.open(error.message, 'Fechar', {
-            duration: 5000
-          });
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(CompanyDeleteConfirm, {
+      width: '500px',
+      data: { company }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadCompanies();
+      }
+    });
   }
 }

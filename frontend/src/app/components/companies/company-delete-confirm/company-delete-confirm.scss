@@ -5,44 +5,56 @@
 
 .form-header {
   margin-bottom: 16px;
+  padding-left: 16px;
   
   h2 {
     margin: 0;
     color: var(--forte-dark);
     font-size: 1.25rem;
     font-weight: 600;
-    text-align: left;
+    text-align: center;
   }
 }
 
-.company-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
+.confirm-content {
+  margin-bottom: 24px;
 
-.form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+  .warning-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+    padding: 16px;
 
-.full-width {
-  width: 100%;
-}
+    .warning-icon {
+      font-size: 48px;
+      color: var(--forte-orange);
+      margin-bottom: 16px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.loading-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  
-  span {
-    color: #666;
-    font-size: 0.875rem;
+    p {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color: var(--forte-dark);
+      line-height: 1.5;
+
+      strong {
+        color: var(--forte-blue);
+        font-weight: 600;
+      }
+    }
+
+    .warning-text {
+      color: var(--forte-orange);
+      font-weight: 500;
+      margin: 0;
+    }
   }
 }
 
@@ -75,38 +87,15 @@
     }
     
     &[mat-raised-button] {
-      background: var(--forte-blue);
+      background: #FF4757;
       color: white;
       
       &:hover {
-        background: #3A7BD5;
+        background: #FF4757;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
       }
     }
-  }
-}
-
-.mat-mdc-form-field {
-  .mat-mdc-form-field-outline {
-    color: var(--forte-blue);
-  }
-  
-  &.mat-focused .mat-mdc-form-field-outline-thick {
-    color: var(--forte-blue);
-  }
-  
-  .mat-mdc-form-field-label {
-    color: var(--forte-gray);
-    font-size: 0.875rem;
-  }
-  
-  &.mat-focused .mat-mdc-form-field-label {
-    color: var(--forte-blue);
-  }
-  
-  .mat-mdc-input-element {
-    font-size: 0.875rem;
   }
 }
 
@@ -121,7 +110,6 @@
   font-weight: 600;
   text-transform: none;
 }
-
 
 @media (max-width: 480px) {
   .form-container {
