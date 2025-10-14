@@ -89,7 +89,7 @@
                                         matTooltip="Excluir funcionário">
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                    <button mat-icon-button color="accent" matTooltip="Gerenciar ativos do funcionário">
+                                    <button mat-icon-button color="accent" (click)="manageEmployeeAssets(employee)" matTooltip="Gerenciar ativos do funcionário">
                                         <mat-icon>inventory</mat-icon>
                                     </button>
                                 </div>

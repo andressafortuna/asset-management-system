@@ -1,0 +1,144 @@
+<div class="employee-asset-management-container">
+    <app-header></app-header>
+
+    <div class="content">
+        <div *ngIf="employeeLoading" class="loading-container">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p>Carregando dados do funcionário...</p>
+        </div>
+
+        <div *ngIf="!employeeLoading && employee" class="main-content">
+            <mat-card class="header-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <div class="title-section">
+                            <mat-card-title>Gestão de Ativos</mat-card-title>
+                            <mat-card-subtitle>{{ employee.name }} - {{ employee.email }}</mat-card-subtitle>
+                        </div>
+                        <div class="action-section">
+                            <button mat-stroked-button (click)="goBack()">
+                                <mat-icon>arrow_back</mat-icon>
+                                Voltar
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-header>
+            </mat-card>
+
+            <mat-card class="employee-assets-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <div class="title-section">
+                            <mat-card-title>Ativos do Funcionário</mat-card-title>
+                            <mat-card-subtitle>Ativos atualmente associados</mat-card-subtitle>
+                        </div>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div *ngIf="assetsLoading" class="loading-container">
+                        <mat-spinner diameter="50"></mat-spinner>
+                        <p>Carregando ativos do funcionário...</p>
+                    </div>
+
+                    <div *ngIf="!assetsLoading" class="employee-assets-content">
+                        <div *ngIf="employeeAssets.length === 0" class="empty-state">
+                            <h3>Nenhum ativo associado</h3>
+                            <p>Este funcionário não possui ativos associados no momento.</p>
+                        </div>
+
+                        <div *ngIf="employeeAssets.length > 0" class="assets-list">
+                            <div *ngFor="let asset of employeeAssets" class="asset-item">
+                                <div class="asset-info">
+                                    <div class="asset-name">
+                                        <mat-icon>{{ getTypeIcon(asset.type) }}</mat-icon>
+                                        {{ asset.name }}
+                                    </div>
+                                    <div class="asset-details">
+                                        <span class="asset-type">{{ asset.type }}</span>
+                                        <mat-chip [class]="'status-chip ' + getStatusColor(asset.status)">
+                                            {{ asset.status }}
+                                        </mat-chip>
+                                    </div>
+                                </div>
+                                <div class="asset-actions">
+                                    <button mat-icon-button color="warn" (click)="disassociateAsset(asset)"
+                                        [disabled]="loading" matTooltip="Desassociar ativo">
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="available-assets-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <div class="title-section">
+                            <mat-card-title>Ativos Disponíveis</mat-card-title>
+                            <mat-card-subtitle>Associe novos ativos ao funcionário</mat-card-subtitle>
+                        </div>
+                        <div class="action-section">
+                            <button mat-raised-button color="accent" (click)="openCreateAssetDialog()">
+                                <mat-icon>add</mat-icon>
+                                Novo Ativo
+                            </button>
+                        </div>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div *ngIf="availableAssetsLoading" class="loading-container">
+                        <mat-spinner diameter="50"></mat-spinner>
+                        <p>Carregando ativos disponíveis...</p>
+                    </div>
+
+                    <div *ngIf="!availableAssetsLoading" class="available-assets-content">
+                        <div *ngIf="availableAssets.length === 0" class="empty-state">
+                            <h3>Nenhum ativo disponível</h3>
+                            <p>Não há ativos disponíveis para associação no momento.</p>
+                            <button mat-raised-button color="primary" (click)="openCreateAssetDialog()">
+                                <mat-icon>add</mat-icon>
+                                Criar Novo Ativo
+                            </button>
+                        </div>
+
+                        <div *ngIf="availableAssets.length > 0" class="assets-list">
+                            <div *ngFor="let asset of availableAssets" class="asset-item">
+                                <div class="asset-info">
+                                    <div class="asset-name">
+                                        <mat-icon>{{ getTypeIcon(asset.type) }}</mat-icon>
+                                        {{ asset.name }}
+                                    </div>
+                                    <div class="asset-details">
+                                        <span class="asset-type">{{ asset.type }}</span>
+                                        <mat-chip [class]="'status-chip ' + getStatusColor(asset.status)">
+                                            {{ asset.status }}
+                                        </mat-chip>
+                                    </div>
+                                </div>
+                                <div class="asset-actions">
+                                    <button mat-icon-button color="primary"
+                                        (click)="selectedAssetId = asset.id; associateAsset()" [disabled]="loading"
+                                        matTooltip="Associar ativo">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="accent" (click)="openEditAssetDialog(asset)"
+                                        matTooltip="Editar ativo">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="openDeleteAssetDialog(asset)"
+                                        matTooltip="Excluir ativo">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

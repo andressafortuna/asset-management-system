@@ -149,6 +149,10 @@ export class CompanyDetails implements OnInit {
     this.router.navigate(['/companies']);
   }
 
+  manageEmployeeAssets(employee: Employee): void {
+    this.router.navigate(['/funcionario', employee.id]);
+  }
+
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString('pt-BR');
   }
