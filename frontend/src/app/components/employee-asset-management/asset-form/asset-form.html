@@ -1,0 +1,46 @@
+<div class="form-container">
+    <div class="form-header">
+        <h2>{{ isEdit ? 'Editar Ativo' : 'Novo Ativo' }}</h2>
+    </div>
+
+    <form class="asset-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-content">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nome do Ativo</mat-label>
+                <input matInput formControlName="name" placeholder="Ex.: Notebook Dell">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" [disabled]="isAssetInUse">
+                    <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="isAssetInUse" class="info-message">
+                <mat-icon>info</mat-icon>
+                <span>Este ativo está em uso e não pode ter seu status alterado. Desassocie-o primeiro para poder
+                    editá-lo.</span>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button mat-button type="button" (click)="onCancel()">
+                <mat-icon>close</mat-icon>
+                Cancelar
+            </button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="loading || form.invalid">
+                <mat-icon *ngIf="!loading">save</mat-icon>
+                <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+                {{ isEdit ? 'Salvar Alterações' : 'Criar Ativo' }}
+            </button>
+        </div>
+    </form>
+</div>

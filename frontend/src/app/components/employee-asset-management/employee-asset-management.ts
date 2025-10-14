@@ -20,6 +20,8 @@ import { Asset } from '../../models/asset.model';
 import { Employee } from '../../models/employee.model';
 import { Header } from '../header/header';
 import { ApiError } from '../../utils/error-handler';
+import { AssetForm, AssetFormData } from './asset-form/asset-form';
+import { AssetDeleteConfirm, AssetDeleteData } from './asset-delete-confirm/asset-delete-confirm';
 
 @Component({
   selector: 'app-employee-asset-management',
@@ -58,7 +60,8 @@ export class EmployeeAssetManagement implements OnInit {
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -108,7 +111,7 @@ export class EmployeeAssetManagement implements OnInit {
     this.availableAssetsLoading = true;
     this.assetService.getAvailableAssets().subscribe({
       next: (assets) => {
-        this.availableAssets = assets;
+        this.availableAssets = assets.filter(asset => asset.status !== 'Em Uso');
         this.availableAssetsLoading = false;
       },
       error: (error: ApiError) => {
@@ -123,6 +126,14 @@ export class EmployeeAssetManagement implements OnInit {
 
   associateAsset(): void {
     if (!this.selectedAssetId || !this.employee) {
+      return;
+    }
+
+    const selectedAsset = this.availableAssets.find(asset => asset.id === this.selectedAssetId);
+    if (selectedAsset && selectedAsset.status === 'Em Manutenção') {
+      this.snackBar.open('Ativo em manutenção não pode ser associado', 'Fechar', {
+        duration: 3000
+      });
       return;
     }
 
@@ -203,14 +214,50 @@ export class EmployeeAssetManagement implements OnInit {
   }
 
   openCreateAssetDialog(): void {
-    console.log('Criar ativo');
+    const dialogRef = this.dialog.open(AssetForm, {
+      width: '600px',
+      data: { mode: 'create' } as AssetFormData
+    });
+
+    dialogRef.afterClosed().subscribe((result: Asset | false) => {
+      if (result) {
+        this.loadAvailableAssets();
+        if (this.employee) {
+          this.loadEmployeeAssets(this.employee.id);
+        }
+      }
+    });
   }
 
   openEditAssetDialog(asset: Asset): void {
-    console.log('Editar ativo');
+    const dialogRef = this.dialog.open(AssetForm, {
+      width: '600px',
+      data: { mode: 'edit', asset } as AssetFormData
+    });
+
+    dialogRef.afterClosed().subscribe((result: Asset | false) => {
+      if (result) {
+        this.loadAvailableAssets();
+        if (this.employee) {
+          this.loadEmployeeAssets(this.employee.id);
+        }
+      }
+    });
   }
 
   openDeleteAssetDialog(asset: Asset): void {
-    console.log('Excluir ativo');
+    const dialogRef = this.dialog.open(AssetDeleteConfirm, {
+      width: '500px',
+      data: { asset } as AssetDeleteData
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.loadAvailableAssets();
+        if (this.employee) {
+          this.loadEmployeeAssets(this.employee.id);
+        }
+      }
+    });
   }
 }

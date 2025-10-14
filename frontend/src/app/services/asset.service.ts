@@ -29,7 +29,7 @@ export class AssetService {
 
     getAvailableAssets(): Observable<Asset[]> {
         try {
-            return this.http.get<Asset[]>(`${this.apiUrl}/available`).pipe(
+            return this.http.get<Asset[]>(`${this.apiUrl}`).pipe(
                 catchError(error => {
                     const apiError = ErrorHandler.handleError(error);
                     return throwError(() => apiError);

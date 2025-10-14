@@ -121,8 +121,9 @@
                                 </div>
                                 <div class="asset-actions">
                                     <button mat-icon-button color="primary"
-                                        (click)="selectedAssetId = asset.id; associateAsset()" [disabled]="loading"
-                                        matTooltip="Associar ativo">
+                                        (click)="selectedAssetId = asset.id; associateAsset()"
+                                        [disabled]="loading || asset.status === 'Em Manutenção'"
+                                        matTooltip="Associar ativo'">
                                         <mat-icon>add</mat-icon>
                                     </button>
                                     <button mat-icon-button color="accent" (click)="openEditAssetDialog(asset)"

@@ -1,0 +1,24 @@
+<div class="confirm-container">
+    <div class="confirm-header">
+        <h2>Excluir Ativo</h2>
+    </div>
+
+    <div class="confirm-content">
+        <div class="warning-section">
+            <mat-icon class="warning-icon">warning</mat-icon>
+            <p>Tem certeza que deseja excluir o ativo <strong>{{ data.asset.name }}</strong>?</p>
+            <p class="warning-text">Esta ação não poderá ser desfeita.</p>
+        </div>
+    </div>
+
+    <div class="confirm-actions">
+        <button mat-button type="button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+            Cancelar
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="onConfirm()" [disabled]="loading">
+            <mat-icon>delete</mat-icon>
+            Excluir
+        </button>
+    </div>
+</div>
