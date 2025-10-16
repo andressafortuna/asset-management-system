@@ -4,6 +4,7 @@ import { CreateCompanyDto } from '../dto/create-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { CompanyResponseDto } from '../dto/company-response.dto';
 import { CompanyNotFoundException, CompanyAlreadyExistsException, } from '../../common/exceptions/business.exception';
+import { Company } from '@prisma/client';
 
 @Injectable()
 export class CompanyService {
@@ -82,7 +83,7 @@ export class CompanyService {
         await this.companyRepository.delete(id);
     }
 
-    private mapToResponseDto(company: any): CompanyResponseDto {
+    private mapToResponseDto(company: Company): CompanyResponseDto {
         return {
             id: company.id,
             name: company.name,

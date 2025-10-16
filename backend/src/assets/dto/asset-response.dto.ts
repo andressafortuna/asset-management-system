@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AssetStatus } from './create-asset.dto';
 
 export class AssetResponseDto {
   @ApiProperty({

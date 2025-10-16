@@ -9,6 +9,7 @@ import {
   EmployeeAlreadyExistsException,
   CompanyNotFoundException,
 } from '../../common/exceptions/business.exception';
+import { Employee } from '@prisma/client';
 
 @Injectable()
 export class EmployeeService {
@@ -114,7 +115,7 @@ export class EmployeeService {
     await this.employeeRepository.delete(id);
   }
 
-  private mapToResponseDto(employee: any): EmployeeResponseDto {
+  private mapToResponseDto(employee: Employee): EmployeeResponseDto {
     return {
       id: employee.id,
       name: employee.name,

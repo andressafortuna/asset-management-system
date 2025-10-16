@@ -12,6 +12,11 @@ import {
   EmployeeAlreadyHasNotebookException,
   AssetAssociatedWithEmployeeException,
 } from '../../common/exceptions/business.exception';
+import { Asset, Employee } from '@prisma/client';
+
+type AssetWithEmployee = Asset & {
+  employee?: Employee | null;
+};
 
 @Injectable()
 export class AssetService {
@@ -102,8 +107,9 @@ export class AssetService {
       throw new AssetNotFoundException();
     }
 
-    if (existingAsset.employeeId && (existingAsset as any).employee) {
-      throw new AssetAssociatedWithEmployeeException((existingAsset as any).employee.name);
+    const assetWithEmployee = existingAsset as AssetWithEmployee;
+    if (assetWithEmployee.employeeId && assetWithEmployee.employee) {
+      throw new AssetAssociatedWithEmployeeException(assetWithEmployee.employee.name);
     }
 
     await this.assetRepository.delete(id);
@@ -163,7 +169,7 @@ export class AssetService {
     return this.mapToResponseDto(updatedAsset);
   }
 
-  private mapToResponseDto(asset: any): AssetResponseDto {
+  private mapToResponseDto(asset: Asset): AssetResponseDto {
     return {
       id: asset.id,
       name: asset.name,
