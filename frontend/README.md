@@ -1,59 +1,157 @@
-# FrontendTemp
+# ForteTec Asset Manager - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+Sistema de gerenciamento de ativos desenvolvido em Angular 20 com Material Design. Permite o gerenciamento completo de empresas, funcionários e ativos de forma intuitiva e responsiva.
 
-## Development server
+## 🚀 Tecnologias Utilizadas
 
-To start a local development server, run:
+- **Angular 20.3.0** - Framework principal
+- **Angular Material 20.2.8** - Componentes de UI
+- **Angular CDK 20.2.8** - Component Development Kit
+- **RxJS 7.8.0** - Programação reativa
+- **TypeScript 5.9.2** - Linguagem de programação
+- **ngx-mask 20.0.3** - Máscaras para inputs
+- **ESLint** - Linting e formatação de código
 
+## 📋 Funcionalidades Implementadas
+
+### 🏢 Gestão de Empresas
+- **Listagem de empresas** com tabela responsiva
+- **Criação de novas empresas** com validação de CNPJ
+- **Edição de dados** das empresas existentes
+- **Exclusão de empresas** com confirmação
+- **Visualização detalhada** de cada empresa
+
+### 👥 Gestão de Funcionários
+- **Cadastro de funcionários** por empresa
+- **Listagem de funcionários** com informações completas
+- **Edição de dados** dos funcionários
+- **Exclusão de funcionários** com confirmação
+- **Validação de CPF** e email
+
+### 📦 Gestão de Ativos
+- **Cadastro de ativos** (equipamentos, ferramentas, etc.)
+- **Associação de ativos** a funcionários
+- **Controle de status** dos ativos
+- **Edição e exclusão** de ativos
+- **Histórico de movimentações**
+
+## 🏗️ Estrutura do Projeto
+
+```
+src/app/
+├── components/           # Componentes da aplicação
+│   ├── companies/       # Gestão de empresas
+│   ├── company-details/ # Detalhes e funcionários
+│   ├── employee-asset-management/ # Gestão de ativos
+│   └── header/          # Cabeçalho da aplicação
+├── models/              # Interfaces TypeScript
+│   ├── company.model.ts
+│   ├── employee.model.ts
+│   └── asset.model.ts
+├── services/            # Serviços de API
+│   ├── company.service.ts
+│   ├── employee.service.ts
+│   └── asset.service.ts
+└── utils/               # Utilitários
+    └── error-handler.ts
+```
+
+## 🛠️ Instalação e Configuração
+
+### Pré-requisitos
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+- Backend da aplicação rodando na porta 3000
+
+### Instalação
+1. Clone o repositório:
 ```bash
+git clone https://github.com/andressafortuna/asset-management-system.git
+cd asset-management-system/frontend
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Inicie o servidor de desenvolvimento:
+```bash
+npm start
+# ou
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação estará disponível em `http://localhost:4200/`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Scripts Disponíveis
 
 ```bash
-ng generate component component-name
+# Desenvolvimento
+npm start          # Inicia o servidor de desenvolvimento
+npm run watch      # Build em modo watch
+
+# Build
+npm run build      # Build para produção
+
+# Testes
+npm test           # Executa testes unitários
+npm run lint       # Executa linting do código
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🎨 Interface do Usuário
+
+O sistema utiliza **Angular Material** para uma interface moderna e responsiva:
+
+- **Tabelas interativas** com ordenação e filtros
+- **Formulários validados** com feedback visual
+- **Modais de confirmação** para ações críticas
+- **Loading states** e indicadores de progresso
+- **Design responsivo** para diferentes dispositivos
+- **Tema consistente** com Material Design
+
+## 🔗 Integração com Backend
+
+O frontend se comunica com a API REST através dos serviços:
+
+- **CompanyService**: `/companies` - CRUD de empresas
+- **EmployeeService**: `/employees` - CRUD de funcionários  
+- **AssetService**: `/assets` - CRUD de ativos
+
+### Configuração da API
+A URL base da API está configurada como `http://localhost:3000` nos serviços. Para alterar, modifique a propriedade `apiUrl` em cada serviço.
+
+## 🧪 Testes
 
 ```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
+# Executar testes unitários
 ng test
+
+# Executar testes com coverage
+ng test --code-coverage
 ```
 
-## Running end-to-end tests
+## 📱 Navegação
 
-For end-to-end (e2e) testing, run:
+O sistema possui as seguintes rotas:
 
-```bash
-ng e2e
-```
+- `/empresas` - Lista de empresas (página inicial)
+- `/empresas/:id` - Detalhes da empresa e funcionários
+- `/funcionario/:employeeId` - Gestão de ativos do funcionário
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🔧 Desenvolvimento
 
-## Additional Resources
+### Estrutura de um componente
+Cada componente segue a estrutura:
+- `componente.ts` - Lógica do componente
+- `componente.html` - Template
+- `componente.scss` - Estilos
+- `componente.spec.ts` - Testes
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
