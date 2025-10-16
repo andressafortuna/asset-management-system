@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,14 +27,12 @@ export interface AssetDeleteData {
   styleUrl: './asset-delete-confirm.scss'
 })
 export class AssetDeleteConfirm {
-  loading = false;
+  private assetService = inject(AssetService);
+  private snackBar = inject(MatSnackBar);
+  private dialogRef = inject<MatDialogRef<AssetDeleteConfirm>>(MatDialogRef);
+  data = inject<AssetDeleteData>(MAT_DIALOG_DATA);
 
-  constructor(
-    private assetService: AssetService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<AssetDeleteConfirm>,
-    @Inject(MAT_DIALOG_DATA) public data: AssetDeleteData
-  ) { }
+  loading = false;
 
   onConfirm(): void {
     this.loading = true;

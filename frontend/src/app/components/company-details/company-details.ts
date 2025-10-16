@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -36,19 +36,17 @@ import { ApiError } from '../../utils/error-handler';
   styleUrl: './company-details.scss'
 })
 export class CompanyDetails implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private companyService = inject(CompanyService);
+  private employeeService = inject(EmployeeService);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+
   company: Company | null = null;
   employees: Employee[] = [];
   loading = false;
   companyLoading = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private companyService: CompanyService,
-    private employeeService: EmployeeService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) { }
 
   ngOnInit(): void {
     this.loadCompanyDetails();

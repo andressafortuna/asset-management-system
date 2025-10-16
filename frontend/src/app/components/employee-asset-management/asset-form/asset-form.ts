@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -36,18 +36,22 @@ export interface AssetFormData {
     styleUrl: './asset-form.scss'
 })
 export class AssetForm {
+    private fb = inject(FormBuilder);
+    private assetService = inject(AssetService);
+    private snackBar = inject(MatSnackBar);
+    private dialogRef = inject<MatDialogRef<AssetForm>>(MatDialogRef);
+    data = inject<AssetFormData>(MAT_DIALOG_DATA);
+
     form: FormGroup;
     loading = false;
     types: string[] = ['Notebook', 'Monitor', 'Celular'];
     statuses: string[] = ['Disponível', 'Em Manutenção'];
 
-    constructor(
-        private fb: FormBuilder,
-        private assetService: AssetService,
-        private snackBar: MatSnackBar,
-        private dialogRef: MatDialogRef<AssetForm>,
-        @Inject(MAT_DIALOG_DATA) public data: AssetFormData
-    ) {
+    constructor(...args: unknown[]);
+
+    constructor() {
+        const data = this.data;
+
         const initialStatus = data.asset?.status === 'Em Uso' ? 'Em Uso' : (data.asset?.status || 'Disponível');
 
         this.form = this.fb.group({

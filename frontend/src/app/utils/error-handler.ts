@@ -3,17 +3,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 export interface ApiError {
     message: string;
     status: number;
-    details?: any;
+    details?: unknown;
 }
 
 export class ErrorHandler {
-    static handleError(error: any): ApiError {
+    static handleError(error: unknown): ApiError {
         console.error('Error caught by ErrorHandler:', error);
 
         if (error instanceof HttpErrorResponse) {
-            if (error.error && error.error.message) {
+            if (error.error && (error.error as any).message) {
                 return {
-                    message: error.error.message,
+                    message: (error.error as any).message,
                     status: error.status,
                     details: error.error
                 };
@@ -26,7 +26,7 @@ export class ErrorHandler {
             };
         }
 
-        if (error.name === 'HttpErrorResponse') {
+        if ((error as any).name === 'HttpErrorResponse') {
             return {
                 message: 'Erro de conexão. Verifique sua internet e tente novamente.',
                 status: 0,
@@ -35,7 +35,7 @@ export class ErrorHandler {
         }
 
         return {
-            message: error.message || 'Ocorreu um erro inesperado. Tente novamente.',
+            message: (error as Error).message || 'Ocorreu um erro inesperado. Tente novamente.',
             status: 0,
             details: error
         };
@@ -64,12 +64,12 @@ export class ErrorHandler {
         }
     }
 
-    static getErrorMessage(error: any): string {
+    static getErrorMessage(error: unknown): string {
         const apiError = this.handleError(error);
         return apiError.message;
     }
 
-    static getErrorDetails(error: any): ApiError {
+    static getErrorDetails(error: unknown): ApiError {
         return this.handleError(error);
     }
 }

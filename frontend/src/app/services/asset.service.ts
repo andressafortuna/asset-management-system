@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Asset, CreateAssetRequest } from '../models/asset.model';
-import { ErrorHandler, ApiError } from '../utils/error-handler';
+import { ErrorHandler } from '../utils/error-handler';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AssetService {
+    private http = inject(HttpClient);
+
     private readonly apiUrl = 'http://localhost:3000/assets';
 
-    constructor(private http: HttpClient) { }
 
     getAllAssets(): Observable<Asset[]> {
         try {

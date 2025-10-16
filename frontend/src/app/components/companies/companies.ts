@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -38,16 +38,14 @@ import { ApiError } from '../../utils/error-handler';
   styleUrl: './companies.scss'
 })
 export class Companies implements OnInit {
+  private companyService = inject(CompanyService);
+  private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
+  private router = inject(Router);
+
   companies: Company[] = [];
   loading = false;
   displayedColumns: string[] = ['name', 'cnpj', 'createdAt', 'actions'];
-
-  constructor(
-    private companyService: CompanyService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    private router: Router
-  ) { }
 
   ngOnInit(): void {
     this.loadCompanies();

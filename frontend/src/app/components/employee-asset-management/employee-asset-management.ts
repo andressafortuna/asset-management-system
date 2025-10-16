@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -46,6 +46,13 @@ import { AssetDeleteConfirm, AssetDeleteData } from './asset-delete-confirm/asse
   styleUrl: './employee-asset-management.scss'
 })
 export class EmployeeAssetManagement implements OnInit {
+  private assetService = inject(AssetService);
+  private employeeService = inject(EmployeeService);
+  private snackBar = inject(MatSnackBar);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+
   employee: Employee | null = null;
   employeeAssets: Asset[] = [];
   availableAssets: Asset[] = [];
@@ -53,16 +60,7 @@ export class EmployeeAssetManagement implements OnInit {
   employeeLoading = false;
   assetsLoading = false;
   availableAssetsLoading = false;
-  selectedAssetId: string = '';
-
-  constructor(
-    private assetService: AssetService,
-    private employeeService: EmployeeService,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog
-  ) { }
+  selectedAssetId = '';
 
   ngOnInit(): void {
     const employeeId = this.route.snapshot.paramMap.get('employeeId');

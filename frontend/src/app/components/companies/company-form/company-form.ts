@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -34,17 +34,21 @@ export interface CompanyFormData {
   styleUrl: './company-form.scss'
 })
 export class CompanyForm implements OnInit {
+  private fb = inject(FormBuilder);
+  private companyService = inject(CompanyService);
+  private snackBar = inject(MatSnackBar);
+  private dialogRef = inject<MatDialogRef<CompanyForm>>(MatDialogRef);
+  data = inject<CompanyFormData>(MAT_DIALOG_DATA);
+
   companyForm: FormGroup;
   loading = false;
   isEditMode = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private companyService: CompanyService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<CompanyForm>,
-    @Inject(MAT_DIALOG_DATA) public data: CompanyFormData
-  ) {
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const data = this.data;
+
     this.isEditMode = data.mode === 'edit';
     this.companyForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],

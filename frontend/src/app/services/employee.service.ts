@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Employee, CreateEmployeeRequest, CompanyWithEmployees } from '../models/employee.model';
-import { ErrorHandler, ApiError } from '../utils/error-handler';
+import { Employee, CreateEmployeeRequest } from '../models/employee.model';
+import { ErrorHandler } from '../utils/error-handler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
+  private http = inject(HttpClient);
+
   private readonly apiUrl = 'http://localhost:3000/employees';
 
-  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Employee[]> {
     try {

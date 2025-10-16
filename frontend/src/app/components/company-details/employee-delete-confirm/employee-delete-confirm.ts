@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,14 +27,12 @@ export interface EmployeeDeleteData {
   styleUrl: './employee-delete-confirm.scss'
 })
 export class EmployeeDeleteConfirm {
-  loading = false;
+  private employeeService = inject(EmployeeService);
+  private snackBar = inject(MatSnackBar);
+  private dialogRef = inject<MatDialogRef<EmployeeDeleteConfirm>>(MatDialogRef);
+  data = inject<EmployeeDeleteData>(MAT_DIALOG_DATA);
 
-  constructor(
-    private employeeService: EmployeeService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<EmployeeDeleteConfirm>,
-    @Inject(MAT_DIALOG_DATA) public data: EmployeeDeleteData
-  ) { }
+  loading = false;
 
   onConfirm(): void {
     this.loading = true;

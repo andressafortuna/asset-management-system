@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -35,17 +35,21 @@ export interface EmployeeFormData {
   styleUrl: './employee-form.scss'
 })
 export class EmployeeForm implements OnInit {
+  private fb = inject(FormBuilder);
+  private employeeService = inject(EmployeeService);
+  private snackBar = inject(MatSnackBar);
+  private dialogRef = inject<MatDialogRef<EmployeeForm>>(MatDialogRef);
+  data = inject<EmployeeFormData>(MAT_DIALOG_DATA);
+
   employeeForm: FormGroup;
   loading = false;
   isEditMode = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private employeeService: EmployeeService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<EmployeeForm>,
-    @Inject(MAT_DIALOG_DATA) public data: EmployeeFormData
-  ) {
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const data = this.data;
+
     this.isEditMode = data.mode === 'edit';
     this.employeeForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
@@ -144,7 +148,7 @@ export class EmployeeForm implements OnInit {
   getErrorMessage(fieldName: string): string {
     const control = this.employeeForm.get(fieldName);
     if (control?.hasError('required')) {
-      const fieldLabels: { [key: string]: string } = {
+      const fieldLabels: Record<string, string> = {
         'name': 'Nome',
         'email': 'Email',
         'cpf': 'CPF'
